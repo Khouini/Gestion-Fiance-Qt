@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 #include "comptes.h"
 #include <QMainWindow>
-
+#include "gestioncommandes.h"
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -33,8 +33,17 @@ private slots:
 
     void on_tableViewComptes_activated(const QModelIndex &index);
 
+    void on_pushButton_actualier_2_clicked();
+
+    void on_pushButton_valider_etablissement_clicked();
+
+    void on_pushButton_afficher_PJ_clicked();
+
+
 private:
     Ui::MainWindow *ui;
     Comptes Cmpt;
+    GestionCommandes GC1;
+
 };
 #endif // MAINWINDOW_H

@@ -18,11 +18,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     comptes.cpp \
     connection.cpp \
+    gestioncommandes.cpp \
     main.cpp \
     mainwindow.cpp
 HEADERS += \
     comptes.h \
     connection.h \
+    gestioncommandes.h \
     mainwindow.h
 
 FORMS += \

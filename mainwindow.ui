@@ -18,7 +18,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>2</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab_2">
        <attribute name="title">
@@ -369,10 +369,10 @@
           </property>
           <layout class="QHBoxLayout" name="horizontalLayout_5">
            <item>
-            <widget class="QTableView" name="tableViewComptes_2"/>
+            <widget class="QTableView" name="tableViewCommande1"/>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton_3">
+            <widget class="QPushButton" name="pushButton_actualier_2">
              <property name="text">
               <string>Actualiser</string>
              </property>
@@ -401,7 +401,7 @@
                   </widget>
                  </item>
                  <item>
-                  <widget class="QComboBox" name="comboBox"/>
+                  <widget class="QComboBox" name="comboBox_Commandes_id"/>
                  </item>
                  <item>
                   <widget class="QLabel" name="label_4">
@@ -411,12 +411,12 @@
                   </widget>
                  </item>
                  <item>
-                  <widget class="QComboBox" name="comboBox_2"/>
+                  <widget class="QComboBox" name="comboBox_compte_id"/>
                  </item>
                 </layout>
                </item>
                <item>
-                <widget class="QPushButton" name="pushButton">
+                <widget class="QPushButton" name="pushButton_valider_etablissement">
                  <property name="text">
                   <string>Valider</string>
                  </property>
@@ -445,12 +445,12 @@
                   </widget>
                  </item>
                  <item>
-                  <widget class="QLineEdit" name="lineEdit"/>
+                  <widget class="QLineEdit" name="lineEdit_id_commande"/>
                  </item>
                 </layout>
                </item>
                <item>
-                <widget class="QPushButton" name="pushButton_4">
+                <widget class="QPushButton" name="pushButton_afficher_PJ">
                  <property name="text">
                   <string>Afficher PJ</string>
                  </property>
@@ -474,26 +474,6 @@
                  <item>
                   <property name="text">
                    <string notr="true" comment="num" extracomment="Numro">N_COMPTE</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>NOM_COMPTE</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>CLASSE_COMPTE</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>TYPE_COMPTE</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>SOLDE_COMPTE</string>
                   </property>
                  </item>
                 </widget>
@@ -563,14 +543,14 @@
         <item>
          <widget class="QGroupBox" name="groupBox_7">
           <property name="title">
-           <string>Affichage</string>
+           <string>Affichage simplificative de comptabilité</string>
           </property>
           <layout class="QHBoxLayout" name="horizontalLayout_24">
            <item>
-            <widget class="QTableView" name="tableViewComptes_3"/>
+            <widget class="QTableView" name="tableViewCommandes_2"/>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton_5">
+            <widget class="QPushButton" name="pushButton_actualier_3">
              <property name="text">
               <string>Actualiser</string>
              </property>
@@ -646,26 +626,6 @@
                  <item>
                   <property name="text">
                    <string notr="true" comment="num" extracomment="Numro">N_COMPTE</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>NOM_COMPTE</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>CLASSE_COMPTE</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>TYPE_COMPTE</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>SOLDE_COMPTE</string>
                   </property>
                  </item>
                 </widget>

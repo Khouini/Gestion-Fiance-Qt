@@ -5,6 +5,9 @@
 #include <QIntValidator>
 #include <QDebug>
 #include <QSqlError>
+#include "gestioncommandes.h"
+#include <QFile>
+#include <QTextStream>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -12,6 +15,9 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     ui->tableViewComptes->setModel(Cmpt.afficher());
+    ui->tableViewCommande1->setModel(GC1.afficherCommandes1());
+    ui->comboBox_Commandes_id->setModel(GC1.afficherComboBoxCommandes());
+    ui->comboBox_compte_id->setModel(GC1.afficherComboBoxCompte());
     ui->lineEdit_Numero_Compte->setValidator(new QIntValidator (0, 999, this));
     ui->lineEdit_Suppression_ID->setValidator(new QIntValidator (0, 999, this));
     ui->lineEdit_Nom_Compte->setValidator(new QRegExpValidator(QRegExp("[A-z]*")));
@@ -42,6 +48,7 @@ void MainWindow::on_pushButton_Ajouter_clicked()
 
     if (test){
         ui->tableViewComptes->setModel(Cmpt.afficher());
+        ui->comboBox_compte_id->setModel(GC1.afficherComboBoxCompte());
         QMessageBox::information(nullptr, QObject::tr("Database is open"),
                               QObject::tr("Ajout effectué"),
                               QMessageBox::Ok
@@ -61,6 +68,7 @@ void MainWindow::on_pushButton_Supprimer_clicked()
 
     if (test){
         ui->tableViewComptes->setModel(Cmpt.afficher());
+        ui->comboBox_compte_id->setModel(GC1.afficherComboBoxCompte());
         QMessageBox::information(nullptr, QObject::tr("Database is open"),
                               QObject::tr("Suppression effectué"),
                               QMessageBox::Ok
@@ -91,6 +99,7 @@ void MainWindow::on_pushButton_Modifier_clicked()
 
     if (test){
         ui->tableViewComptes->setModel(Cmpt.afficher());
+        ui->comboBox_compte_id->setModel(GC1.afficherComboBoxCompte());
         QMessageBox::information(nullptr, QObject::tr("Database is open"),
                               QObject::tr("Modification effectué"),
                               QMessageBox::Ok
@@ -153,6 +162,58 @@ void MainWindow::on_tableViewComptes_activated(const QModelIndex &index)
             }
             if ((query.value(3).toString()) == "Passif"){
                 ui->radioButton_Type_Passif->setChecked(1);
+            }
+        }
+    }else{
+        QMessageBox::critical(this, tr("Error::"), query.lastError().text());
+    }
+}
+
+void MainWindow::on_pushButton_actualier_2_clicked()
+{
+    ui->tableViewCommande1->setModel(GC1.afficherCommandes1());
+    ui->comboBox_Commandes_id->setModel(GC1.afficherComboBoxCommandes());
+    ui->comboBox_compte_id->setModel(GC1.afficherComboBoxCompte());
+}
+
+void MainWindow::on_pushButton_valider_etablissement_clicked()
+{
+    int id_compte = ui->comboBox_compte_id->currentText().toUInt();
+    int id_commande = ui->comboBox_Commandes_id->currentText().toInt();
+    GestionCommandes GC(id_compte, id_commande);
+    bool test = GC.EtablirCompte();
+
+    if (test){
+        ui->tableViewCommande1->setModel(GC1.afficherCommandes1());
+        QMessageBox::information(nullptr, QObject::tr("Database is open"),
+                              QObject::tr("etablir effectué"),
+                              QMessageBox::Ok
+                              );
+    }else{
+        QMessageBox::critical(nullptr, QObject::tr("Database is not open"),
+                              QObject::tr("etablir non effectué"),
+                              QMessageBox::Cancel
+                              );
+    }
+}
+
+void MainWindow::on_pushButton_afficher_PJ_clicked()
+{
+    QString val = ui->lineEdit_id_commande->text();
+    QSqlQuery query;
+    query.prepare("select PJ from Commandes where (id_commande) LIKE "+val+" ");
+    QString fichier_PJ;
+    QString X;
+    if (query.exec()){
+        while (query.next()){
+            fichier_PJ = query.value(0).toString();
+            X = "D:\\Documents\\GitHub\\Gestion-Fiance-Qt\\"+fichier_PJ ;
+            QFile file (X);
+            if(!file.open(QIODevice::ReadOnly)){
+                QMessageBox::information(0, "info", file.errorString());
+            }else{
+                QTextStream in(&file);
+                QMessageBox::about(this, tr("The title"), in.readAll());
             }
         }
     }else{
