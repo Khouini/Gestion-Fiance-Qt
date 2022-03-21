@@ -6,11 +6,11 @@
 
 class Comptes
 {
-    int Numero;
-    QString Nom, Classe, Type ,  Caract;
+    int Numero, Solde;
+    QString Nom, Classe, Type ;
 public:
     Comptes();
-    Comptes(int, QString, QString, QString,  QString);
+    Comptes(int, QString, QString, QString,  float);
     bool ajouter();
     QSqlQueryModel * afficher();
     bool supprimer(int);
@@ -18,7 +18,6 @@ public:
     QSqlQueryModel * trier(QString, QString);
     QSqlQueryModel * recherche(QString);
     QSqlQueryModel * rechercheID(QString);
-
 };
 
 #endif // COMPTES_H

@@ -6,6 +6,7 @@
 #include <QIntValidator>
 #include <QDebug>
 #include <QSqlError>
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -37,14 +38,14 @@ void MainWindow::on_pushButton_Ajouter_clicked()
     int Numero = ui->lineEdit_Numero_Compte->text().toInt();
     QString Nom = ui->lineEdit_Nom_Compte->text();
     QString Classe = ui->lineEdit_Classe_Compte->text();
-    QString Caract = ui->plainTextEdit_Caracteristiques_Compte->toPlainText();
+    float solde= ui->lineEdit_Solde->text().toFloat();
     if (ui->radioButton_Type_Actif->isChecked()){
         Type = "Actif";
     }
     if (ui->radioButton_Type_Passif->isChecked()){
         Type = "Passif";
     }
-    Comptes C(Numero, Nom, Classe, Type, Caract);
+    Comptes C(Numero, Nom, Classe, Type, solde);
     bool test = C.ajouter();
 
     if (test){
@@ -86,14 +87,14 @@ void MainWindow::on_pushButton_Modifier_clicked()
     int Numero = ui->lineEdit_Numero_Compte->text().toInt();
     QString Nom = ui->lineEdit_Nom_Compte->text();
     QString Classe = ui->lineEdit_Classe_Compte->text();
-    QString Caract = ui->plainTextEdit_Caracteristiques_Compte->toPlainText();
+    float solde= ui->lineEdit_Solde->text().toFloat();
     if (ui->radioButton_Type_Actif->isChecked()){
         Type = "Actif";
     }
     if (ui->radioButton_Type_Passif->isChecked()){
     Type = "Passif";
     }
-    Comptes C(Numero, Nom, Classe, Type, Caract);
+    Comptes C(Numero, Nom, Classe, Type, solde);
     bool test = C.modifier();
 
     if (test){
@@ -154,7 +155,7 @@ void MainWindow::on_tableViewComptes_activated(const QModelIndex &index)
             ui->lineEdit_Suppression_ID->setText(query.value(0).toString());
             ui->lineEdit_Nom_Compte->setText(query.value(1).toString());
             ui->lineEdit_Classe_Compte->setText(query.value(2).toString());
-            ui->plainTextEdit_Caracteristiques_Compte->setPlainText(query.value(4).toString());
+            ui->lineEdit_Solde->setText(query.value(4).toString());
             if ((query.value(3).toString()) == "Actif"){
                 ui->radioButton_Type_Actif->setChecked(1);
             }

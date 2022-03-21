@@ -4,20 +4,20 @@ Comptes::Comptes()
 {
 
 }
-Comptes::Comptes(int Numero, QString Nom, QString Classe, QString Type,  QString Caract){
+Comptes::Comptes(int Numero, QString Nom, QString Classe, QString Type,  float Solde){
     this->Numero=Numero;
     this->Nom=Nom;
     this->Classe=Classe;
     this->Type=Type;
-    this->Caract=Caract;
+    this->Solde=Solde;
 }
 bool Comptes::ajouter(){
     QSqlQuery query;
-    query.prepare("insert into Comptes values (:Numero, :Nom, :Classe, :Type, :Caract, NULL, NULL)");
+    query.prepare("insert into Comptes values (:Numero, :Nom, :Classe, :Type, :Solde, NULL)");
     query.bindValue(":Numero", Numero);
     query.bindValue(":Nom", Nom);
     query.bindValue(":Classe", Classe);
-    query.bindValue(":Caract", Caract);
+    query.bindValue(":Solde", Solde);
     query.bindValue(":Type", Type);
     return query.exec();
 }
@@ -28,9 +28,8 @@ QSqlQueryModel * Comptes::afficher(){
     model->setHeaderData(1,Qt::Horizontal, QObject::tr("Nom"));
     model->setHeaderData(2,Qt::Horizontal, QObject::tr("Classe"));
     model->setHeaderData(3,Qt::Horizontal, QObject::tr("Type"));
-    model->setHeaderData(4,Qt::Horizontal, QObject::tr("Caractéristiques"));
-    model->setHeaderData(5,Qt::Horizontal, QObject::tr("Solde"));
-    model->setHeaderData(6,Qt::Horizontal, QObject::tr("ID User"));
+    model->setHeaderData(4,Qt::Horizontal, QObject::tr("Solde"));
+    model->setHeaderData(5,Qt::Horizontal, QObject::tr("ID User"));
 
     return model;
 }
@@ -43,11 +42,11 @@ bool Comptes::supprimer(int num){
 }
 bool Comptes::modifier(){
     QSqlQuery query;
-    query.prepare("UPDATE Comptes set NOM_COMPTE = :Nom, CLASSE_COMPTE = :Classe, TYPE_COMPTE = :Type, CARACT_COMPTE = :Caract  WHERE N_COMPTE = :Numero");
+    query.prepare("UPDATE Comptes set NOM_COMPTE = :Nom, CLASSE_COMPTE = :Classe, TYPE_COMPTE = :Type, SOLDE_COMPTE = :Solde  WHERE N_COMPTE = :Numero");
     query.bindValue(":Numero", Numero);
     query.bindValue(":Nom", Nom);
     query.bindValue(":Classe", Classe);
-    query.bindValue(":Caract", Caract);
+    query.bindValue(":Solde", Solde);
     query.bindValue(":Type", Type);
     return query.exec();
 }
@@ -59,21 +58,19 @@ QSqlQueryModel * Comptes::trier(QString type_tri, QString tri_par){
     model->setHeaderData(1,Qt::Horizontal, QObject::tr("Nom"));
     model->setHeaderData(2,Qt::Horizontal, QObject::tr("Classe"));
     model->setHeaderData(3,Qt::Horizontal, QObject::tr("Type"));
-    model->setHeaderData(4,Qt::Horizontal, QObject::tr("Caractéristiques"));
-    model->setHeaderData(5,Qt::Horizontal, QObject::tr("Solde"));
-    model->setHeaderData(6,Qt::Horizontal, QObject::tr("ID User"));
+    model->setHeaderData(4,Qt::Horizontal, QObject::tr("Solde"));
+    model->setHeaderData(5,Qt::Horizontal, QObject::tr("ID User"));
     return model;
 }
 QSqlQueryModel * Comptes::recherche(QString rech){
     QSqlQueryModel * model = new QSqlQueryModel();
-    model->setQuery("select * from Comptes where  (N_COMPTE) LIKE '%"+rech+"%' OR (NOM_COMPTE) LIKE '%"+rech+"%' OR (CLASSE_COMPTE) LIKE '%"+rech+"%' OR (TYPE_COMPTE) LIKE '%"+rech+"%' OR (CARACT_COMPTE) LIKE '%"+rech+"%' ");
+    model->setQuery("select * from Comptes where  (N_COMPTE) LIKE '%"+rech+"%' OR (NOM_COMPTE) LIKE '%"+rech+"%' OR (CLASSE_COMPTE) LIKE '%"+rech+"%' OR (TYPE_COMPTE) LIKE '%"+rech+"%' OR (SOLDE_COMPTE) LIKE '%"+rech+"%' ");
     model->setHeaderData(0,Qt::Horizontal, QObject::tr("Numéro"));
     model->setHeaderData(1,Qt::Horizontal, QObject::tr("Nom"));
     model->setHeaderData(2,Qt::Horizontal, QObject::tr("Classe"));
     model->setHeaderData(3,Qt::Horizontal, QObject::tr("Type"));
-    model->setHeaderData(4,Qt::Horizontal, QObject::tr("Caractéristiques"));
-    model->setHeaderData(5,Qt::Horizontal, QObject::tr("Solde"));
-    model->setHeaderData(6,Qt::Horizontal, QObject::tr("ID User"));
+    model->setHeaderData(4,Qt::Horizontal, QObject::tr("Solde"));
+    model->setHeaderData(5,Qt::Horizontal, QObject::tr("ID User"));
     return model;
 }
 QSqlQueryModel * Comptes::rechercheID(QString rech){
@@ -83,8 +80,7 @@ QSqlQueryModel * Comptes::rechercheID(QString rech){
     model->setHeaderData(1,Qt::Horizontal, QObject::tr("Nom"));
     model->setHeaderData(2,Qt::Horizontal, QObject::tr("Classe"));
     model->setHeaderData(3,Qt::Horizontal, QObject::tr("Type"));
-    model->setHeaderData(4,Qt::Horizontal, QObject::tr("Caractéristiques"));
-    model->setHeaderData(5,Qt::Horizontal, QObject::tr("Solde"));
-    model->setHeaderData(6,Qt::Horizontal, QObject::tr("ID User"));
+    model->setHeaderData(4,Qt::Horizontal, QObject::tr("Solde"));
+    model->setHeaderData(5,Qt::Horizontal, QObject::tr("ID User"));
     return model;
 }

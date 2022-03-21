@@ -21,7 +21,6 @@ SOURCES += \
     dialog_voir_pj.cpp \
     main.cpp \
     mainwindow.cpp
-
 HEADERS += \
     comptes.h \
     connection.h \
@@ -30,7 +29,7 @@ HEADERS += \
 
 FORMS += \
     dialog_voir_pj.ui \
-    mainwindow.ui
+    mainwindow.ui \
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
