@@ -18,17 +18,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     comptes.cpp \
     connection.cpp \
-    dialog_voir_pj.cpp \
     main.cpp \
     mainwindow.cpp
 HEADERS += \
     comptes.h \
     connection.h \
-    dialog_voir_pj.h \
     mainwindow.h
 
 FORMS += \
-    dialog_voir_pj.ui \
     mainwindow.ui \
 
 # Default rules for deployment.

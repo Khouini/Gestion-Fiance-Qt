@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "dialog_voir_pj.h"
 #include "comptes.h"
 #include <QMessageBox>
 #include <QIntValidator>
@@ -23,13 +22,6 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
-}
-
-
-void MainWindow::on_pushButton_clicked()
-{
-    Dialog_Voir_PJ Voir_PJ;
-    Voir_PJ.exec();
 }
 
 void MainWindow::on_pushButton_Ajouter_clicked()
