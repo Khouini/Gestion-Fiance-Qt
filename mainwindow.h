@@ -40,6 +40,12 @@ private slots:
     void on_pushButton_afficher_PJ_clicked();
 
 
+    void on_tableViewCommande1_activated(const QModelIndex &index);
+
+    void on_pushButton_Trier_2_clicked();
+
+    void on_pushButton_Chercher_3_clicked();
+
 private:
     Ui::MainWindow *ui;
     Comptes Cmpt;

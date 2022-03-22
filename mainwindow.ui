@@ -473,7 +473,27 @@
                 <widget class="QComboBox" name="comboBox_Tri_2">
                  <item>
                   <property name="text">
-                   <string notr="true" comment="num" extracomment="Numro">N_COMPTE</string>
+                   <string notr="true" comment="num" extracomment="Numro">ID_COMMANDE</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>N_COMPTE</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>NOM_COMPTE</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>TYPE_COMPTE</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>SOLDE_COMPTE</string>
                   </property>
                  </item>
                 </widget>

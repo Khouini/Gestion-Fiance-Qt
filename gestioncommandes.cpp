@@ -29,3 +29,13 @@ bool GestionCommandes::EtablirCompte(){
     query.bindValue(":idCommande", id_commande);
     return query.exec();
 }
+QSqlQueryModel * GestionCommandes::trierCommandes1(QString type_tri, QString tri_par){
+    QSqlQueryModel * model = new QSqlQueryModel();
+    model->setQuery("SELECT commandes.id_commande, commandes.PJ, comptes.N_compte, comptes.nom_compte, comptes.type_compte, comptes.solde_compte FROM commandes JOIN comptes ON commandes.n_compte = comptes.n_compte order by "+tri_par+" "+type_tri+" ");
+    return model;
+}
+QSqlQueryModel * GestionCommandes::recherche1(QString rech){
+    QSqlQueryModel * model = new QSqlQueryModel();
+    model->setQuery("SELECT commandes.id_commande, commandes.PJ, comptes.N_compte, comptes.nom_compte, comptes.type_compte, comptes.solde_compte FROM commandes JOIN comptes ON commandes.n_compte = comptes.n_compte where (commandes.ID_COMMANDE) LIKE '%"+rech+"%' OR (comptes.N_COMPTE) LIKE '%"+rech+"%' OR (comptes.NOM_COMPTE) LIKE '%"+rech+"%' OR (comptes.CLASSE_COMPTE) LIKE '%"+rech+"%' OR (comptes.TYPE_COMPTE) LIKE '%"+rech+"%' OR (comptes.SOLDE_COMPTE) LIKE '%"+rech+"%' ");
+    return model;
+}

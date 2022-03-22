@@ -220,3 +220,38 @@ void MainWindow::on_pushButton_afficher_PJ_clicked()
         QMessageBox::critical(this, tr("Error::"), query.lastError().text());
     }
 }
+
+void MainWindow::on_tableViewCommande1_activated(const QModelIndex &index)
+{
+    QString val = ui->tableViewCommande1->model()->data(index).toString();
+    QSqlQuery query;
+    query.prepare("select id_commande from commandes where (id_commande) LIKE "+val+" ");
+    if (query.exec()){
+        while (query.next()){
+            ui->lineEdit_id_commande->setText(query.value(0).toString());
+            ui->comboBox_Commandes_id->setCurrentText(query.value(0).toString());
+        }
+    }else{
+        QMessageBox::critical(this, tr("Error::"), query.lastError().text());
+    }
+}
+
+void MainWindow::on_pushButton_Trier_2_clicked()
+{
+    QString type_of_tri;
+    QString tri_par;
+    if (ui->radioButton_Tri_Asc_2->isChecked()){
+        type_of_tri = "asc";
+    }
+    if (ui->radioButton_Tri_Desc_2->isChecked()){
+        type_of_tri = "desc";
+    }
+    tri_par = ui->comboBox_Tri_2->currentText();
+    ui->tableViewCommande1->setModel(GC1.trierCommandes1(type_of_tri, tri_par));
+}
+
+void MainWindow::on_pushButton_Chercher_3_clicked()
+{
+    QString rech_field = ui->lineEdit_Recherche_2->text();
+    ui->tableViewCommande1->setModel(GC1.recherche1(rech_field));
+}
