@@ -16,8 +16,10 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     ui->tableViewComptes->setModel(Cmpt.afficher());
     ui->tableViewCommande1->setModel(GC1.afficherCommandes1());
+    ui->tableViewCommandes_2->setModel(GC1.afficherCommandes2());
     ui->comboBox_Commandes_id->setModel(GC1.afficherComboBoxCommandes());
     ui->comboBox_compte_id->setModel(GC1.afficherComboBoxCompte());
+    ui->comboBox_n_compte->setModel(GC1.afficherComboBoxCompte2());
     ui->lineEdit_Numero_Compte->setValidator(new QIntValidator (0, 999, this));
     ui->lineEdit_Suppression_ID->setValidator(new QIntValidator (0, 999, this));
     ui->lineEdit_Nom_Compte->setValidator(new QRegExpValidator(QRegExp("[A-z]*")));
@@ -207,13 +209,13 @@ void MainWindow::on_pushButton_afficher_PJ_clicked()
     if (query.exec()){
         while (query.next()){
             fichier_PJ = query.value(0).toString();
-            X = "D:\\Documents\\GitHub\\Gestion-Fiance-Qt\\"+fichier_PJ ;
+            X = "D:\\Documents\\GitHub\\Gestion-Fiance-Qt\\PJ\\"+fichier_PJ ;
             QFile file (X);
             if(!file.open(QIODevice::ReadOnly)){
                 QMessageBox::information(0, "info", file.errorString());
             }else{
                 QTextStream in(&file);
-                QMessageBox::about(this, tr("The title"), in.readAll());
+                QMessageBox::about(this, tr("Piéce Justificative"), in.readAll());
             }
         }
     }else{
@@ -254,4 +256,68 @@ void MainWindow::on_pushButton_Chercher_3_clicked()
 {
     QString rech_field = ui->lineEdit_Recherche_2->text();
     ui->tableViewCommande1->setModel(GC1.recherche1(rech_field));
+}
+
+void MainWindow::on_pushButton_Trier_3_clicked()
+{
+    QString type_of_tri;
+    QString tri_par;
+    if (ui->radioButton_Tri_Asc_3->isChecked()){
+        type_of_tri = "asc";
+    }
+    if (ui->radioButton_Tri_Desc_3->isChecked()){
+        type_of_tri = "desc";
+    }
+    tri_par = ui->comboBox_Tri_3->currentText();
+    ui->tableViewCommandes_2->setModel(GC1.trierCommandes2(type_of_tri, tri_par));
+}
+
+void MainWindow::on_pushButton_Chercher_4_clicked()
+{
+    QString rech_field = ui->lineEdit_Recherche_3->text();
+    ui->tableViewCommandes_2->setModel(GC1.recherche2(rech_field));
+}
+
+void MainWindow::on_pushButton_actualier_3_clicked()
+{
+    ui->tableViewCommandes_2->setModel(GC1.afficherCommandes2());
+    ui->comboBox_n_compte->setModel(GC1.afficherComboBoxCompte2());
+}
+
+void MainWindow::on_pushButton_valider_compta_clicked()
+{
+    QString montant = ui->lineEdit_montant->text();
+    QString nCompte = ui->comboBox_n_compte->currentText();
+    QString compta_type;
+    if (ui->radioButton_crediter->isChecked()){
+        compta_type = "+";
+    }
+    if (ui->radioButton_debiter->isChecked()){
+        compta_type = "-";
+    }
+    QSqlQuery query;
+    query.prepare("update comptes set solde_compte = solde_compte "+compta_type+" "+montant+" where n_compte like "+nCompte+" ");
+    if (query.exec()){
+            ui->tableViewCommandes_2->setModel(GC1.afficherCommandes2());
+            QMessageBox::information(nullptr, QObject::tr("Database is open"),
+                                  QObject::tr("Manipulation effectué"),
+                                  QMessageBox::Ok
+                                  );
+        }else{
+        QMessageBox::critical(this, tr("Error::"), query.lastError().text());
+    }
+}
+
+void MainWindow::on_tableViewCommandes_2_activated(const QModelIndex &index)
+{
+    QString val = ui->tableViewCommandes_2->model()->data(index).toString();
+    QSqlQuery query;
+    query.prepare("select n_compte from commandes where (n_compte) LIKE "+val+" ");
+    if (query.exec()){
+        while (query.next()){
+            ui->comboBox_n_compte->setCurrentText(query.value(0).toString());
+        }
+    }else{
+        QMessageBox::critical(this, tr("Error::"), query.lastError().text());
+    }
 }

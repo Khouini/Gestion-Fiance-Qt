@@ -8,7 +8,7 @@ int main(int argc, char *argv[])
 
     QApplication a(argc, argv);
     // theme
-    QFile styleSheetFile("Genetive.qss");
+    QFile styleSheetFile("D:\\Documents\\GitHub\\Gestion-Fiance-Qt\\stylesheet\\Darkeum.qss");
     styleSheetFile.open(QFile::ReadOnly);
     QString styleSheet = ( styleSheetFile.readAll() );
     a.setStyleSheet(styleSheet);

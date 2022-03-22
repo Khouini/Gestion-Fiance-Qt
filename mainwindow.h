@@ -46,6 +46,16 @@ private slots:
 
     void on_pushButton_Chercher_3_clicked();
 
+    void on_pushButton_Trier_3_clicked();
+
+    void on_pushButton_Chercher_4_clicked();
+
+    void on_pushButton_actualier_3_clicked();
+
+    void on_pushButton_valider_compta_clicked();
+
+    void on_tableViewCommandes_2_activated(const QModelIndex &index);
+
 private:
     Ui::MainWindow *ui;
     Comptes Cmpt;

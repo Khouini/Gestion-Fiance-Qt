@@ -18,7 +18,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="tab_2">
        <attribute name="title">
@@ -599,21 +599,35 @@
                   </widget>
                  </item>
                  <item>
-                  <widget class="QLineEdit" name="lineEdit_2"/>
+                  <widget class="QLineEdit" name="lineEdit_montant"/>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_30">
+                 <item>
+                  <widget class="QLabel" name="label_15">
+                   <property name="text">
+                    <string>Numéro de compte: </string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QComboBox" name="comboBox_n_compte"/>
                  </item>
                 </layout>
                </item>
                <item>
                 <layout class="QHBoxLayout" name="horizontalLayout_26">
                  <item>
-                  <widget class="QRadioButton" name="radioButton">
+                  <widget class="QRadioButton" name="radioButton_crediter">
                    <property name="text">
                     <string>Créditer</string>
                    </property>
                   </widget>
                  </item>
                  <item>
-                  <widget class="QRadioButton" name="radioButton_2">
+                  <widget class="QRadioButton" name="radioButton_debiter">
                    <property name="text">
                     <string>Débiter</string>
                    </property>
@@ -622,7 +636,7 @@
                 </layout>
                </item>
                <item>
-                <widget class="QPushButton" name="pushButton_6">
+                <widget class="QPushButton" name="pushButton_valider_compta">
                  <property name="text">
                   <string>Valider</string>
                  </property>
@@ -645,7 +659,22 @@
                 <widget class="QComboBox" name="comboBox_Tri_3">
                  <item>
                   <property name="text">
-                   <string notr="true" comment="num" extracomment="Numro">N_COMPTE</string>
+                   <string>ID_COMMANDE</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>NOM_COMPTE</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>TYPE_COMPTE</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>SOLDE_COMPTE</string>
                   </property>
                  </item>
                 </widget>

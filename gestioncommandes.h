@@ -19,6 +19,7 @@ public:
     QSqlQueryModel * recherche2(QString);
     QSqlQueryModel * afficherComboBoxCommandes();
     QSqlQueryModel * afficherComboBoxCompte();
+    QSqlQueryModel * afficherComboBoxCompte2();
 };
 
 #endif // GESTIONCOMMANDES_H
