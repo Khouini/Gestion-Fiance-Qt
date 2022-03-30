@@ -6,8 +6,7 @@
 
 class Comptes
 {
-    int Numero, Solde;
-    QString Nom, Classe, Type ;
+
 public:
     Comptes();
     Comptes(int, QString, QString, QString,  float);
@@ -18,6 +17,11 @@ public:
     QSqlQueryModel * trier(QString, QString);
     QSqlQueryModel * recherche(QString);
     QSqlQueryModel * rechercheID(QString);
+    void printPDF_comptes();
+    QSqlQueryModel * afficherIdPDFComboBox();
+private:
+    int Numero, Solde;
+    QString Nom, Classe, Type ;
 };
 
 #endif // COMPTES_H

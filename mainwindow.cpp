@@ -8,6 +8,9 @@
 #include "gestioncommandes.h"
 #include <QFile>
 #include <QTextStream>
+#include <QUrl>
+#include <QDesktopServices>
+
 #include "historique.h"
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -20,6 +23,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->comboBox_Commandes_id->setModel(GC1.afficherComboBoxCommandes());
     ui->comboBox_compte_id->setModel(GC1.afficherComboBoxCompte());
     ui->comboBox_n_compte->setModel(GC1.afficherComboBoxCompte2());
+    ui->comboBox_pdf_id->setModel(Cmpt.afficherIdPDFComboBox());
     ui->lineEdit_Numero_Compte->setValidator(new QIntValidator (0, 999, this));
     ui->lineEdit_Suppression_ID->setValidator(new QIntValidator (0, 999, this));
     ui->lineEdit_Nom_Compte->setValidator(new QRegExpValidator(QRegExp("[A-z]*")));
@@ -172,6 +176,7 @@ void MainWindow::on_tableViewComptes_activated(const QModelIndex &index)
     if (query.exec()){
         while (query.next()){
             ui->lineEdit_Numero_Compte->setText(query.value(0).toString());
+            ui->comboBox_pdf_id->setCurrentText(query.value(0).toString());
             ui->lineEdit_Suppression_ID->setText(query.value(0).toString());
             ui->lineEdit_Nom_Compte->setText(query.value(1).toString());
             ui->lineEdit_Classe_Compte->setText(query.value(2).toString());
@@ -193,6 +198,7 @@ void MainWindow::on_pushButton_actualier_2_clicked()
     ui->tableViewCommande1->setModel(GC1.afficherCommandes1());
     ui->comboBox_Commandes_id->setModel(GC1.afficherComboBoxCommandes());
     ui->comboBox_compte_id->setModel(GC1.afficherComboBoxCompte());
+    ui->comboBox_pdf_id->setModel(Cmpt.afficherIdPDFComboBox());
 }
 
 void MainWindow::on_pushButton_valider_etablissement_clicked()
@@ -342,4 +348,28 @@ void MainWindow::on_tableViewCommandes_2_activated(const QModelIndex &index)
 void MainWindow::on_pushButtonActualiserHistorique_clicked()
 {
     ui->tableViewHistorique->setModel(H.Afficher());
+}
+
+void MainWindow::on_pushButton_clicked()
+{
+    QString Type;
+    int Numero = ui->comboBox_pdf_id->currentText().toInt();
+    QString Nom = ui->lineEdit_Nom_Compte->text();
+    QString Classe = ui->lineEdit_Classe_Compte->text();
+    float solde= ui->lineEdit_Solde->text().toFloat();
+    if (ui->radioButton_Type_Actif->isChecked()){
+        Type = "Actif";
+    }
+    if (ui->radioButton_Type_Passif->isChecked()){
+        Type = "Passif";
+    }
+    Comptes C(Numero, Nom, Classe, Type, solde);
+    C.printPDF_comptes() ;
+
+}
+
+void MainWindow::on_pushButton_afficher_pdf_clicked()
+{
+    QString link="file:///D:/Documents/GitHub/Gestion-Fiance-Qt/comptes.pdf";
+            QDesktopServices::openUrl(QUrl(link));
 }

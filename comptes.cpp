@@ -1,4 +1,7 @@
 #include "comptes.h"
+#include <QPdfWriter>
+#include <QPainter>
+#include <QMessageBox>
 
 Comptes::Comptes()
 {
@@ -82,5 +85,37 @@ QSqlQueryModel * Comptes::rechercheID(QString rech){
     model->setHeaderData(3,Qt::Horizontal, QObject::tr("Type"));
     model->setHeaderData(4,Qt::Horizontal, QObject::tr("Solde"));
     model->setHeaderData(5,Qt::Horizontal, QObject::tr("ID User"));
+    return model;
+}
+void Comptes::printPDF_comptes()
+{
+    QPdfWriter pdf("D:/Documents/GitHub/Gestion-Fiance-Qt/comptes.pdf");
+    QPainter painter(&pdf);
+    QFont font=painter.font();
+    QMessageBox msgBox;
+    QString id = QString::number(Numero) ;
+    QString solde = QString::number(Solde) ;
+    font.setPointSize(font.pointSize() * 2);
+           painter.setFont(font);
+           painter.setPen(Qt::black);
+           painter.drawText(300,800 , "Numero: ");
+           painter.drawText(300,1600, "Nom: ");
+           painter.drawText(300, 2400, "Classe: ");
+           painter.drawText(300, 3200,"Type: ");
+           painter.drawText(300,4000,"Solde: ");
+           painter.setPen(Qt::blue);
+           painter.drawText(2100, 800, id);
+           painter.drawText(2100,1600 , this->Nom);
+           painter.drawText(2100, 2400, this->Classe);
+           painter.drawText(2100, 3200, this->Type);
+           painter.drawText(2100, 4000, solde);
+           painter.end();
+           msgBox.setIcon(QMessageBox::Information);
+           msgBox.setText("A pdf has been created.");
+           msgBox.exec();
+}
+QSqlQueryModel * Comptes::afficherIdPDFComboBox(){
+    QSqlQueryModel * model = new QSqlQueryModel();
+    model->setQuery("SELECT n_compte FROM comptes;");
     return model;
 }

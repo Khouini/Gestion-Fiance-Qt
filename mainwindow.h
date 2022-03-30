@@ -59,6 +59,10 @@ private slots:
 
     void on_pushButtonActualiserHistorique_clicked();
 
+    void on_pushButton_clicked();
+
+    void on_pushButton_afficher_pdf_clicked();
+
 private:
     Ui::MainWindow *ui;
     Comptes Cmpt;
