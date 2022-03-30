@@ -8,7 +8,7 @@
 #include "gestioncommandes.h"
 #include <QFile>
 #include <QTextStream>
-
+#include "historique.h"
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -25,6 +25,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->lineEdit_Nom_Compte->setValidator(new QRegExpValidator(QRegExp("[A-z]*")));
     ui->lineEdit_Classe_Compte->setValidator(new QRegExpValidator(QRegExp("[A-z]*")));
     ui->lineEdit_Recherche->setValidator(new QRegExpValidator(QRegExp("[A-z]*")));
+    ui->tableViewHistorique->setModel(H.Afficher());
 }
 
 MainWindow::~MainWindow()
@@ -55,6 +56,11 @@ void MainWindow::on_pushButton_Ajouter_clicked()
                               QObject::tr("Ajout effectué"),
                               QMessageBox::Ok
                               );
+        //Historique
+        QString operation = "Ajout";
+        Historique h(operation, Numero, Nom);
+        h.Ajouter();
+        ui->tableViewHistorique->setModel(H.Afficher());
     }else{
         QMessageBox::critical(nullptr, QObject::tr("Database is not open"),
                               QObject::tr("Ajouter non effectué"),
@@ -66,15 +72,21 @@ void MainWindow::on_pushButton_Ajouter_clicked()
 void MainWindow::on_pushButton_Supprimer_clicked()
 {
     int id = ui->lineEdit_Suppression_ID->text().toInt();
+    QString Nom = ui->lineEdit_Nom_Compte->text();
     bool test = Cmpt.supprimer(id);
-
     if (test){
         ui->tableViewComptes->setModel(Cmpt.afficher());
         ui->comboBox_compte_id->setModel(GC1.afficherComboBoxCompte());
+        ui->tableViewHistorique->setModel(H.Afficher());
         QMessageBox::information(nullptr, QObject::tr("Database is open"),
                               QObject::tr("Suppression effectué"),
                               QMessageBox::Ok
                               );
+        //Historique
+        QString operation = "Suppression";
+        Historique h(operation, id, Nom);
+        h.Ajouter();
+        ui->tableViewHistorique->setModel(H.Afficher());
     }else{
         QMessageBox::critical(nullptr, QObject::tr("Database is not open"),
                               QObject::tr("Suppression non effectué"),
@@ -106,6 +118,11 @@ void MainWindow::on_pushButton_Modifier_clicked()
                               QObject::tr("Modification effectué"),
                               QMessageBox::Ok
                               );
+        //Historique
+        QString operation = "Modification";
+        Historique h(operation, Numero, Nom);
+        h.Ajouter();
+        ui->tableViewHistorique->setModel(H.Afficher());
     }else{
         QMessageBox::critical(nullptr, QObject::tr("Database is not open"),
                               QObject::tr("Modification non effectué"),
@@ -320,4 +337,9 @@ void MainWindow::on_tableViewCommandes_2_activated(const QModelIndex &index)
     }else{
         QMessageBox::critical(this, tr("Error::"), query.lastError().text());
     }
+}
+
+void MainWindow::on_pushButtonActualiserHistorique_clicked()
+{
+    ui->tableViewHistorique->setModel(H.Afficher());
 }

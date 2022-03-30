@@ -3,6 +3,7 @@
 #include "comptes.h"
 #include <QMainWindow>
 #include "gestioncommandes.h"
+#include "historique.h"
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -56,10 +57,13 @@ private slots:
 
     void on_tableViewCommandes_2_activated(const QModelIndex &index);
 
+    void on_pushButtonActualiserHistorique_clicked();
+
 private:
     Ui::MainWindow *ui;
     Comptes Cmpt;
     GestionCommandes GC1;
+    Historique H;
 
 };
 #endif // MAINWINDOW_H

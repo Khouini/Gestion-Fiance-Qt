@@ -19,12 +19,14 @@ SOURCES += \
     comptes.cpp \
     connection.cpp \
     gestioncommandes.cpp \
+    historique.cpp \
     main.cpp \
     mainwindow.cpp
 HEADERS += \
     comptes.h \
     connection.h \
     gestioncommandes.h \
+    historique.h \
     mainwindow.h
 
 FORMS += \

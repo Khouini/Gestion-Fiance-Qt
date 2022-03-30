@@ -36,7 +36,7 @@ QSqlQueryModel * Comptes::afficher(){
 bool Comptes::supprimer(int num){
     QSqlQuery query;
     QString res = QString::number(num);
-    query.prepare("delete from Comptes where N_COMPTE = :num");
+    query.prepare("delete from Comptes where N_COMPTE = :num;");
     query.bindValue(":num", res);
     return query.exec();
 }

@@ -357,6 +357,27 @@
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="tab_4">
+       <attribute name="title">
+        <string>Historiqye CRUD</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_14">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <item>
+           <widget class="QTableView" name="tableViewHistorique"/>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButtonActualiserHistorique">
+            <property name="text">
+             <string>Actualiser</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
       <widget class="QWidget" name="tab">
        <attribute name="title">
         <string>Établissement des commandes</string>
@@ -622,14 +643,14 @@
                  <item>
                   <widget class="QRadioButton" name="radioButton_crediter">
                    <property name="text">
-                    <string>Créditer</string>
+                    <string>Créditer (+)</string>
                    </property>
                   </widget>
                  </item>
                  <item>
                   <widget class="QRadioButton" name="radioButton_debiter">
                    <property name="text">
-                    <string>Débiter</string>
+                    <string>Débiter (-)</string>
                    </property>
                   </widget>
                  </item>
