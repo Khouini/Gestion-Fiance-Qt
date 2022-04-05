@@ -373,3 +373,51 @@ void MainWindow::on_pushButton_afficher_pdf_clicked()
     QString link="file:///D:/Documents/GitHub/Gestion-Fiance-Qt/comptes.pdf";
             QDesktopServices::openUrl(QUrl(link));
 }
+
+void MainWindow::on_pushButton_envoyer_clicked()
+{
+    QString nickname = ui->lineEditidNickname->text();
+    QString Conversation = ui->lineEdit_Conversation->text();
+    QString message_sent = ui->lineEdit_massage->text();
+    QSqlQuery query;
+    query.prepare("insert into CHATBOX values ('"+nickname+"', "+Conversation+", CHATBOX_SEQ.nextval, '"+message_sent+"', sysdate); ");
+    if (query.exec()){
+            QString Conversation = ui->lineEdit_Conversation->text();
+            QString nickname, msgForTextEdit, text;
+            QSqlQuery querySelect;
+            querySelect.prepare("select nickname, msg from CHATBOX where conversation like "+Conversation+" order by date_sent;");
+            if (querySelect.exec()){
+                ui->textEdit->clear();
+                while (querySelect.next()){
+                    nickname = querySelect.value(0).toString();
+                    msgForTextEdit = querySelect.value(1).toString();
+                    text = nickname + ": " + msgForTextEdit;
+                    ui->textEdit->append(text);
+                }
+            }else{
+                QMessageBox::critical(this, tr("Error::"), querySelect.lastError().text());
+            }
+        }else{
+        QMessageBox::critical(this, tr("Error::"), query.lastError().text());
+    }
+
+}
+
+void MainWindow::on_pushButton_actualiser_chat_clicked()
+{
+    QString Conversation = ui->lineEdit_Conversation->text();
+    QString nickname, msgForTextEdit, text;
+    QSqlQuery querySelect;
+    querySelect.prepare("select nickname, msg from CHATBOX where conversation like "+Conversation+" order by date_sent;");
+    if (querySelect.exec()){
+        ui->textEdit->clear();
+        while (querySelect.next()){
+            nickname = querySelect.value(0).toString();
+            msgForTextEdit = querySelect.value(1).toString();
+            text = nickname + ": " + msgForTextEdit;
+            ui->textEdit->append(text);
+        }
+    }else{
+        QMessageBox::critical(this, tr("Error::"), querySelect.lastError().text());
+    }
+}

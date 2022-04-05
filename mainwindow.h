@@ -63,6 +63,10 @@ private slots:
 
     void on_pushButton_afficher_pdf_clicked();
 
+    void on_pushButton_envoyer_clicked();
+
+    void on_pushButton_actualiser_chat_clicked();
+
 private:
     Ui::MainWindow *ui;
     Comptes Cmpt;
