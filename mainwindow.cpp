@@ -428,5 +428,8 @@ void MainWindow::on_pushButton_send_mail_clicked()
                           QMessageBox::Ok
                           );
     Mailing* mailing = new Mailing("testkhouini@gmail.com", "Trunks@2001", "smtp.gmail.com", 465);
-    mailing->sendMail("testkhouini@gmail.com", "testkhouini@gmail.com" , "Signalisation" ,"Bonjouur");
+    QString adresse = ui->lineEdit_adresse_dest->text();
+    QString Subject = ui->lineEdit_subject->text();
+    QString Message = ui->textEdit_message_email->toPlainText();
+    mailing->sendMail("testkhouini@gmail.com", adresse, Subject ,Message);
 }
