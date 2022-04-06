@@ -735,6 +735,11 @@
                  </item>
                  <item>
                   <property name="text">
+                   <string>N_COMPTE</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
                    <string>NOM_COMPTE</string>
                   </property>
                  </item>
@@ -885,54 +890,42 @@
        <attribute name="title">
         <string>Mail</string>
        </attribute>
-       <layout class="QVBoxLayout" name="verticalLayout_25">
+       <layout class="QVBoxLayout" name="verticalLayout_36">
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout_24">
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_21">
-            <item>
-             <widget class="QLabel" name="label_16">
-              <property name="text">
-               <string>Adresse destination: </string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLineEdit" name="lineEdit_adresse_dest"/>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_29">
-            <item>
-             <widget class="QLabel" name="label_17">
-              <property name="text">
-               <string>Sujet: </string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLineEdit" name="lineEdit_subject"/>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <widget class="QTextEdit" name="textEdit_message_email"/>
-          </item>
+         <layout class="QVBoxLayout" name="verticalLayout_25">
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_22">
             <item>
-             <spacer name="horizontalSpacer">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
+             <layout class="QVBoxLayout" name="verticalLayout_24">
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_21">
+                <item>
+                 <widget class="QLabel" name="label_16">
+                  <property name="text">
+                   <string>Adresse destination: </string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="lineEdit_adresse_dest"/>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_29">
+                <item>
+                 <widget class="QLabel" name="label_17">
+                  <property name="text">
+                   <string>Sujet: </string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="lineEdit_subject"/>
+                </item>
+               </layout>
+              </item>
+             </layout>
             </item>
             <item>
              <widget class="QPushButton" name="pushButton_send_mail">
@@ -942,6 +935,9 @@
              </widget>
             </item>
            </layout>
+          </item>
+          <item>
+           <widget class="QTextEdit" name="textEdit_message_email"/>
           </item>
          </layout>
         </item>

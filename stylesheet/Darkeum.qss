@@ -454,7 +454,7 @@ QTextEdit
 	color: #f0f0f0;
     gridline-color: #8faaff;
     outline : 0;
-	 font-size: 23px;
+	font-size: 15px;
 
 }
 

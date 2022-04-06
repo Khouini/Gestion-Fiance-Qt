@@ -351,16 +351,22 @@ void MainWindow::on_pushButtonActualiserHistorique_clicked()
 
 void MainWindow::on_pushButton_clicked()
 {
-    QString Type;
-    int Numero = ui->comboBox_pdf_id->currentText().toInt();
-    QString Nom = ui->lineEdit_Nom_Compte->text();
-    QString Classe = ui->lineEdit_Classe_Compte->text();
-    float solde= ui->lineEdit_Solde->text().toFloat();
-    if (ui->radioButton_Type_Actif->isChecked()){
-        Type = "Actif";
-    }
-    if (ui->radioButton_Type_Passif->isChecked()){
-        Type = "Passif";
+    QString Nom, Classe, Type;
+    int Numero, solde;
+    QString val = ui->comboBox_pdf_id->currentText();
+    QSqlQuery query;
+    query.prepare("select * from comptes where (n_compte) LIKE "+val+" ");
+    if (query.exec()){
+
+        while (query.next()){
+            Numero = query.value(0).toInt();
+            Nom = query.value(1).toString();
+            Classe = query.value(2).toString();
+            Type = query.value(3).toString();
+            solde = query.value(4).toInt();
+        }
+    }else{
+        QMessageBox::critical(this, tr("Error::"), query.lastError().text());
     }
     Comptes C(Numero, Nom, Classe, Type, solde);
     C.printPDF_comptes() ;
