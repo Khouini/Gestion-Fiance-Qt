@@ -10,7 +10,7 @@
 #include <QTextStream>
 #include <QUrl>
 #include <QDesktopServices>
-
+#include"mailing.h"
 #include "historique.h"
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -36,7 +36,6 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
-
 void MainWindow::on_pushButton_Ajouter_clicked()
 {
     QString Type;
@@ -420,4 +419,14 @@ void MainWindow::on_pushButton_actualiser_chat_clicked()
     }else{
         QMessageBox::critical(this, tr("Error::"), querySelect.lastError().text());
     }
+}
+
+void MainWindow::on_pushButton_send_mail_clicked()
+{
+    QMessageBox::information(nullptr, QObject::tr("STMP is open"),
+                          QObject::tr("Message envoyé"),
+                          QMessageBox::Ok
+                          );
+    Mailing* mailing = new Mailing("testkhouini@gmail.com", "Trunks@2001", "smtp.gmail.com", 465);
+    mailing->sendMail("testkhouini@gmail.com", "testkhouini@gmail.com" , "Signalisation" ,"Bonjouur");
 }

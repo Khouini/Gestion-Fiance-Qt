@@ -18,7 +18,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>4</number>
+       <number>5</number>
       </property>
       <widget class="QWidget" name="tab_2">
        <attribute name="title">
@@ -878,6 +878,20 @@
            </layout>
           </item>
          </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_6">
+       <attribute name="title">
+        <string>Mail</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_24">
+        <item>
+         <widget class="QPushButton" name="pushButton_send_mail">
+          <property name="text">
+           <string>Envoyer e-mail</string>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>
