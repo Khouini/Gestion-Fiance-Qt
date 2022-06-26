@@ -11,6 +11,7 @@
 #include <QUrl>
 #include <QDesktopServices>
 #include"mailing.h"
+#include "notifications.h"
 #include "historique.h"
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -53,12 +54,16 @@ void MainWindow::on_pushButton_Ajouter_clicked()
     bool test = C.ajouter();
 
     if (test){
+
         ui->tableViewComptes->setModel(Cmpt.afficher());
         ui->comboBox_compte_id->setModel(GC1.afficherComboBoxCompte());
         QMessageBox::information(nullptr, QObject::tr("Database is open"),
                               QObject::tr("Ajout effectué"),
                               QMessageBox::Ok
                               );
+        //Notification
+        notifications N(0, Nom);
+        N.notificationsComptes();
         //Historique
         QString operation = "Ajout";
         Historique h(operation, Numero, Nom);
@@ -78,6 +83,7 @@ void MainWindow::on_pushButton_Supprimer_clicked()
     QString Nom = ui->lineEdit_Nom_Compte->text();
     bool test = Cmpt.supprimer(id);
     if (test){
+
         ui->tableViewComptes->setModel(Cmpt.afficher());
         ui->comboBox_compte_id->setModel(GC1.afficherComboBoxCompte());
         ui->tableViewHistorique->setModel(H.Afficher());
@@ -85,6 +91,9 @@ void MainWindow::on_pushButton_Supprimer_clicked()
                               QObject::tr("Suppression effectué"),
                               QMessageBox::Ok
                               );
+        //Notification
+        notifications N(2, Nom);
+        N.notificationsComptes();
         //Historique
         QString operation = "Suppression";
         Historique h(operation, id, Nom);
@@ -121,11 +130,15 @@ void MainWindow::on_pushButton_Modifier_clicked()
                               QObject::tr("Modification effectué"),
                               QMessageBox::Ok
                               );
+        //Notification
+        notifications N(1, Nom);
+        N.notificationsComptes();
         //Historique
         QString operation = "Modification";
         Historique h(operation, Numero, Nom);
         h.Ajouter();
         ui->tableViewHistorique->setModel(H.Afficher());
+
     }else{
         QMessageBox::critical(nullptr, QObject::tr("Database is not open"),
                               QObject::tr("Modification non effectué"),
@@ -253,6 +266,7 @@ void MainWindow::on_tableViewCommande1_activated(const QModelIndex &index)
     if (query.exec()){
         while (query.next()){
             ui->lineEdit_id_commande->setText(query.value(0).toString());
+            ui->lineEdit_id_commande_email->setText(query.value(0).toString());
             ui->comboBox_Commandes_id->setCurrentText(query.value(0).toString());
         }
     }else{
@@ -390,13 +404,15 @@ void MainWindow::on_pushButton_envoyer_clicked()
             QString Conversation = ui->lineEdit_Conversation->text();
             QString nickname, msgForTextEdit, text;
             QSqlQuery querySelect;
-            querySelect.prepare("select nickname, msg from CHATBOX where conversation like "+Conversation+" order by date_sent;");
+            QString date;
+            querySelect.prepare("select  nickname, msg, TO_CHAR(date_sent, 'dy HH24:MI') from CHATBOX where conversation like "+Conversation+" order by date_sent;");
             if (querySelect.exec()){
                 ui->textEdit->clear();
                 while (querySelect.next()){
                     nickname = querySelect.value(0).toString();
                     msgForTextEdit = querySelect.value(1).toString();
-                    text = nickname + ": " + msgForTextEdit;
+                    date = querySelect.value(2).toString();
+                    text = date + "    " +  nickname + ": " + msgForTextEdit;
                     ui->textEdit->append(text);
                 }
             }else{
@@ -410,16 +426,18 @@ void MainWindow::on_pushButton_envoyer_clicked()
 
 void MainWindow::on_pushButton_actualiser_chat_clicked()
 {
+    QString date;
     QString Conversation = ui->lineEdit_Conversation->text();
     QString nickname, msgForTextEdit, text;
     QSqlQuery querySelect;
-    querySelect.prepare("select nickname, msg from CHATBOX where conversation like "+Conversation+" order by date_sent;");
+    querySelect.prepare("select  nickname, msg, TO_CHAR(date_sent, 'dy HH24:MI') from CHATBOX where conversation like "+Conversation+" order by date_sent;");
     if (querySelect.exec()){
         ui->textEdit->clear();
         while (querySelect.next()){
             nickname = querySelect.value(0).toString();
             msgForTextEdit = querySelect.value(1).toString();
-            text = nickname + ": " + msgForTextEdit;
+            date = querySelect.value(2).toString();
+            text = date + "    " +  nickname + ": " + msgForTextEdit;
             ui->textEdit->append(text);
         }
     }else{
@@ -438,4 +456,37 @@ void MainWindow::on_pushButton_send_mail_clicked()
     QString Subject = ui->lineEdit_subject->text();
     QString Message = ui->textEdit_message_email->toPlainText();
     mailing->sendMail("testkhouini@gmail.com", adresse, Subject ,Message);
+}
+
+void MainWindow::on_pushButton_mail_pj_clicked()
+{
+    QString txt;
+    QString val = ui->lineEdit_id_commande_email->text();
+    QSqlQuery query;
+    query.prepare("select PJ from Commandes where (id_commande) LIKE "+val+" ");
+    QString fichier_PJ;
+    QString X;
+    if (query.exec()){
+        while (query.next()){
+            fichier_PJ = query.value(0).toString();
+            X = "D:\\Documents\\GitHub\\Gestion-Fiance-Qt\\PJ\\"+fichier_PJ ;
+            QFile file (X);
+            if(!file.open(QIODevice::ReadOnly)){
+                QMessageBox::information(0, "info", file.errorString());
+            }else{
+                QTextStream in(&file);
+                txt = in.readAll();
+
+            }
+        }
+    }else{
+        QMessageBox::critical(this, tr("Error::"), query.lastError().text());
+    }
+    Mailing* mailing = new Mailing("testkhouini@gmail.com", "Trunks@2001", "smtp.gmail.com", 465);
+    QString adresse = ui->lineEditMailClient->text();
+    mailing->sendMail("testkhouini@gmail.com", adresse, "PJ" , txt);
+    QMessageBox::information(nullptr, QObject::tr("STMP is open"),
+                          QObject::tr("mail envoyé"),
+                          QMessageBox::Ok
+                          );
 }

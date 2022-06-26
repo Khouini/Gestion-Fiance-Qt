@@ -1,4 +1,4 @@
-QT       += core gui sql serialport printsupport network charts multimedia widgets concurrent
+QT       += core gui sql network widgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -21,14 +21,16 @@ SOURCES += \
     historique.cpp \
     mailing.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    notifications.cpp
 HEADERS += \
     comptes.h \
     connection.h \
     gestioncommandes.h \
     historique.h \
     mailing.h \
-    mainwindow.h
+    mainwindow.h \
+    notifications.h
 
 FORMS += \
     mainwindow.ui \

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>799</width>
+    <width>1047</width>
     <height>571</height>
    </rect>
   </property>
@@ -533,6 +533,54 @@
            </widget>
           </item>
           <item>
+           <widget class="QGroupBox" name="groupBox_9">
+            <property name="title">
+             <string>Envoyer pièce justificative au client par mail</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_37">
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_38">
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_32">
+                 <item>
+                  <widget class="QLabel" name="label_18">
+                   <property name="text">
+                    <string>Email Client:</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLineEdit" name="lineEditMailClient"/>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_34">
+                 <item>
+                  <widget class="QLabel" name="label_21">
+                   <property name="text">
+                    <string>ID Commande:</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLineEdit" name="lineEdit_id_commande_email"/>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <widget class="QPushButton" name="pushButton_mail_pj">
+                 <property name="text">
+                  <string>Envoyer</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
            <widget class="QGroupBox" name="groupBox_14">
             <property name="title">
              <string>Tri:</string>
@@ -953,7 +1001,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>799</width>
+     <width>1047</width>
      <height>21</height>
     </rect>
    </property>
